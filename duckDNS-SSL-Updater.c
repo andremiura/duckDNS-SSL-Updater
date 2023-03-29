@@ -42,22 +42,27 @@
         char buffer[BUFFER_SIZE];
 
 	char *hostname="www.duckdns.org";
+        int port=443;
+        char *duckdns=argv[0];
+        char *subdomain=argv[1];
+        char *token=argv[2];
+        int numParam=argc;
 
         char getCommand[1024]="";
 
-        if(argc < 3){
+        if(numParam < 3){
 
-                printf("\n use: %s subdomain token \n\n",argv[0]);
+                printf("\n use: %s subdomain token \n\n",duckdns);
                 exit(1);
         }
 
-        if( (strlen(argv[1]) > 40) || (strlen(argv[2]) > 36) ){
+        if( (strlen(subdomain > 40) || (strlen(token > 36) ){
 
                 printf("\nSize error!\n\n");
                 exit(1);
         }
 
-        fd = socket_connect(hostname,443); 
+        fd = socket_connect(hostname,port); 
 
 	SSL_load_error_strings ();
 	SSL_library_init ();
@@ -71,9 +76,9 @@
    	        exit(1);
 
         strcpy(getCommand,"GET /update?domains=");
-        strcat(getCommand,argv[1]);
+        strcat(getCommand,subdomain);
         strcat(getCommand,"&token=");
-        strcat(getCommand,argv[2]);
+        strcat(getCommand,token);
         strcat(getCommand,"\r\n");
      	
 	SSL_write(conn, getCommand , strlen(getCommand));  
@@ -88,7 +93,7 @@
 
         SSL_shutdown(conn); 
         close(fd);
-         
+
         return 0;
 
 
