@@ -61,11 +61,10 @@ int main(int argc, char *argv[]){
                 exit(-1);
         }
 
-        if( strlen(subdomain > 40) || strlen(token > 36) ){
+        if( strlen(subdomain) > 40 || strlen(token) > 36 ){
                 printf("\nSize error!\n\n");
                 exit(-1);
         }
-
         fd = socket_connect(hostname,port); 
 
 	SSL_load_error_strings ();
